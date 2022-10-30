@@ -32,16 +32,16 @@ public class PlayerMovement : MonoBehaviour
         bool back = Input.GetKeyDown(KeyCode.S);
         bool left = Input.GetKeyDown(KeyCode.A);
         bool right = Input.GetKeyDown(KeyCode.D);
-        
+
         //Es posible simplificar la notación del if si el bloque contiene una única línea.
-        if (forward) playerAnimator.SetTrigger("FORWARD");
-        if (back) playerAnimator.SetTrigger("BACK");
-        if (left) playerAnimator.SetTrigger("LEFT");
-        if (right) playerAnimator.SetTrigger("RIGHT");
+        if (forward && !IsAnimation("FORWARD")) playerAnimator.SetTrigger("FORWARD");
+        if (back && !IsAnimation("BACK")) playerAnimator.SetTrigger("BACK");
+        if (left && !IsAnimation("LEFT")) playerAnimator.SetTrigger("LEFT");
+        if (right && !IsAnimation("RIGHT")) playerAnimator.SetTrigger("RIGHT");
         // Estamos en reposo si se deja de presionar alguna de las teclas de movimiento.
         if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
-            
+
             if (!IsAnimation("IDLE")) playerAnimator.SetTrigger("IDLE");
         }
 
@@ -73,4 +73,6 @@ public class PlayerMovement : MonoBehaviour
         Quaternion newRotation = Quaternion.Euler(0, cameraAxisX, 0);
         transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, speedCamera * Time.deltaTime);
     }
+
+    public stopMovement()
 }
