@@ -24,10 +24,10 @@ public class EnemyCollision : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            PlayerData data = other.gameObject.GetComponent<PlayerData>();
+            PlayerMechanics data = other.gameObject.GetComponent<PlayerMechanics>();
             if (enemyData.animator.GetCurrentAnimatorStateInfo(0).IsName("ATTACK") && canDamage)
             {
-                data.Health -= enemyData.Damage;
+                data.Damage(enemyData.Damage);
                 canDamage = false;
                 time = 0f;
             }

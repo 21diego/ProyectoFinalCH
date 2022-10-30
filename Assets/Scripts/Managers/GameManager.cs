@@ -15,17 +15,32 @@ public class GameManager : MonoBehaviour
     private int score = 0;
 
     public int Score { get => score; set => score = value; }
-    
+
+    public static GameManager instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         InvokeRepeating("SpawnZombieChaser", DelaySpawn, IntervalSpawn);
+
     }
 
     private void Update()
     {
-        textoScore.text = "SCORE: " + (int)Time.time;
-        textoHealth.text = "HEALTH: " + Player.GetComponent<PlayerData>().Health;
+        textoScore.text = "SCORE: " + (int)Time.time * 10;
+        //textoHealth.text = "HEALTH: " + Player.GetComponent<PlayerData>().Health;
     }
 
     private void SpawnZombieChaser()
@@ -35,6 +50,11 @@ public class GameManager : MonoBehaviour
         Vector3 startPosition = respawnPoints[rndPosition].transform.position;
         var obj = Instantiate(zombieChaser, startPosition, zombieChaser.transform.rotation);
         obj.GetComponent<ZombieBehaviour>().PlayerTransform = Player.transform;
+    }
+
+    public void UpdateHealth(int health)
+    {
+        textoHealth.text = "HEALTH: " + health;
     }
 
 }

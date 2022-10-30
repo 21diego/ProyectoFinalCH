@@ -4,22 +4,14 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-    [SerializeField] private int health = 120;
+    [SerializeField] int actualHealth;
+    [SerializeField] int maxHealth;
     [SerializeField] private int damage = 30;
 
     public Animator animator;
-    public int Health { get => health; set => health = value; }
+    public int ActualHealth { get => actualHealth; set => actualHealth = value; }
     public int Damage { get => damage; set => damage = value; }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
